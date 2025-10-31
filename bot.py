@@ -1,13 +1,26 @@
 from dotenv import load_dotenv
 import os
+import logging
+from telegram import Bot, Update
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
 
 load_dotenv()
 
-# 🔍 Debug print to confirm .env is loading
 print("✅ .env loaded")
 print("BOT_TOKEN from .env:", os.getenv("BOT_TOKEN"))
 
 TOKEN = os.getenv("BOT_TOKEN")
+
+if not TOKEN:
+    print("❌ ERROR: BOT_TOKEN not found in environment. Set BOT_TOKEN and re-run.")
+    exit()
+else:
+    print("✅ BOT_TOKEN successfully loaded.")
+
+logging.basicConfig(
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO
+)
+logger = logging.getLogger(__name__)
 
 if not TOKEN:
     print("❌ ERROR: BOT_TOKEN not found in environment. Set BOT_TOKEN and re-run.")

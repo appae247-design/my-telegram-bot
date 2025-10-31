@@ -44,7 +44,7 @@ Write-Host "Installing python-telegram-bot v13.15..."
 pip install python-telegram-bot==13.15
 
 # Automatically set your BOT_TOKEN (replace with your token)
-$env:BOT_TOKEN = "8219669072:AAFPJ8qQZdTeeZF2mDissavm6O80hzcyv-I"
+$env:BOT_TOKEN = "8219669072:AAEpflyopAPq3mjZhPoWcprIYWFmN3nTa18"
 Write-Host "BOT_TOKEN has been set."
 
 # Run the bot
