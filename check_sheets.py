@@ -1,19 +1,22 @@
 import gspread
-from oauth2client.service_account import ServiceAccountCredentials
+from google.oauth2.service_account import Credentials
 
 # ===== Google Sheets setup =====
-scope = ["https://spreadsheets.google.com/feeds",
-         "https://www.googleapis.com/auth/drive"]
+scope = [
+    "https://spreadsheets.google.com/feeds",
+    "https://www.googleapis.com/auth/drive"
+]
 
-# Replace the filename below with the exact name of your JSON key file
-creds = ServiceAccountCredentials.from_json_keyfile_name(
-    "my-telegram-bot-key.json", scope
+# Use google.oauth2.service_account.Credentials (modern method)
+creds = Credentials.from_service_account_file(
+    "my-telegram-bot-key.json", scopes=scope
 )
 
+# Authorize client
 client = gspread.authorize(creds)
 
 # ===== Open the spreadsheet =====
-s = client.open("Telegram Dating Bot DB")
+s = client.open("Telegram Dating Bot DB")  # make sure the name matches exactly
 
 # ===== Access the 'Users' worksheet =====
 sheet = s.worksheet("Users")

@@ -1,30 +1,12 @@
-from dotenv import load_dotenv
 import os
-import logging
-from telegram import Bot, Update
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
-
+from dotenv import load_dotenv
+# Load .env file
 load_dotenv()
+BOT_TOKEN = os.getenv("BOT_TOKEN")
 
-print("✅ .env loaded")
-print("BOT_TOKEN from .env:", os.getenv("BOT_TOKEN"))
+if not BOT_TOKEN:
+    exit("ERROR: BOT_TOKEN not found in environment.")
 
-TOKEN = os.getenv("BOT_TOKEN")
-
-if not TOKEN:
-    print("❌ ERROR: BOT_TOKEN not found in environment. Set BOT_TOKEN and re-run.")
-    exit()
-else:
-    print("✅ BOT_TOKEN successfully loaded.")
-
-logging.basicConfig(
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO
-)
-logger = logging.getLogger(__name__)
-
-if not TOKEN:
-    print("❌ ERROR: BOT_TOKEN not found in environment. Set BOT_TOKEN and re-run.")
-    exit()
 else:
     print("✅ BOT_TOKEN successfully loaded.")
 
@@ -506,3 +488,20 @@ def main():
 
 if __name__ == "__main__":
     main()
+from flask import Flask
+from threading import Thread
+import os
+
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return "Bot is running fine on Render!"
+
+def run_flask():
+    port = int(os.environ.get('PORT', 10000))
+    app.run(host='0.0.0.0', port=port)
+
+if __name__ == '__main__':
+    Thread(target=main).start()  # your main() should start the Telegram bot
+    run_flask()
